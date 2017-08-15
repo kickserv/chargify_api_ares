@@ -40,6 +40,15 @@ module Chargify
       def component_kind_plural
         "#{self.component_kind}s"
       end
+
+      class PricePoint < Base
+        self.prefix = "/components/:component_id/"
+      end
+
+      def price_points(params = {})
+        params.merge!(component_id: self.id)
+        ::Chargify::ProductFamily::Component::PricePoint.find(:all, :params => params)
+      end
     end
 
     class Coupon < Base
