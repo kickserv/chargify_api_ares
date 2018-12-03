@@ -21,12 +21,19 @@ module Chargify
       super
     end
 
-    def cancel(cancellation_message = nil)
-      if cancellation_message.nil?
+    def cancel(params = {})
+      if params.blank?
         destroy
       else
         #Destroy does not support body, must work around it to send verb DELETE
-        self.connection.post(element_path, {:cancellation_message => cancellation_message}.to_xml(:root => :subscription), self.class.headers.merge({'X-Http-Method-Override' => 'DELETE'}))
+        self.connection.post(
+          element_path,
+          {
+            cancellation_message: params[:cancellation_message] || nil,
+            reason_code: params[:reason_code] || nil
+          }.to_xml(:root => :subscription),
+          self.class.headers.merge({'X-Http-Method-Override' => 'DELETE'})
+        )
       end
     end
 
@@ -163,7 +170,7 @@ module Chargify
         if code.nil?
           delete :remove_coupon
         else
-          delete :remove_coupon, :code => code
+          delete :remove_coupon, :coupon_code => code
         end
       end
     end

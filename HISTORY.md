@@ -1,3 +1,12 @@
+## 1.4.15 / June 20, 2018
+
+* Changes Subscription#remove_coupon to use coupon_code instead of code [PR 165](https://github.com/chargify/chargify_api_ares/pull/165).  
+  With this change, the currently applied coupon code must be passed for removal to occur.
+
+## 1.4.14 / December 7, 2017
+
+* Allows canceling a subscription with all supported attributes [PR 161](https://github.com/chargify/chargify_api_ares/pull/161)
+
 ## 1.4.13 / July 21, 2017
 
 * Note: No changes from 1.4.12, previous release was not officially published
